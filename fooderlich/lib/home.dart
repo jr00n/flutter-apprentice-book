@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'card1.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -8,7 +10,22 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // TODO: Add state variables and functions
+  int _selectedIndex = 0;
+
+  static List<Widget> pages = <Widget>[
+    // TODO: Replace with Card1
+    const Card1(),
+    // TODO: Replace with Card2
+    Container(color: Colors.green),
+    // TODO: Replace with Card3
+    Container(color: Colors.blue)
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +36,11 @@ class _HomeState extends State<Home> {
           style: Theme.of(context).textTheme.headline6,
         ),
       ),
-      // TODO: Show selected tab
-      body: Center(
-        child: Text('Let\'s get cooking 👩‍🍳',
-            style: Theme.of(context).textTheme.headline1),
-      ),
+      body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Theme.of(context).textSelectionTheme.selectionColor,
-        // TODO: Set selected tab bar
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.card_giftcard),
